@@ -1,14 +1,26 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
+
+/**
+ * Canadian French Unit Test
+ *
+ * @author     Abdoulaye Siby <https://github.com/asiby>
+ * @copyright  2020 - Abdoulaye Siby
+ * @license    MIT
+ * @version    1.0
+ *
+ * February 17, 2020
+ */
 
 namespace Moment;
 
 use PHPUnit\Framework\TestCase;
 
-class MomentFrenchLocaleTest extends TestCase
+class MomentCanadianFrenchLocaleTest extends TestCase
 {
     public function setUp(): void
     {
-        Moment::setLocale('fr_FR');
+        Moment::setLocale('fr_CA');
     }
 
     public function testWeekdayNames(): void
@@ -43,7 +55,7 @@ class MomentFrenchLocaleTest extends TestCase
         $moment = new Moment($startingDate);
 
         $monthNames = array(
-            1  => array('janv.', 'janvier'),
+            1  => array('jan.', 'janvier'),
             2  => array('févr.', 'février'),
             3  => array('mars', 'mars'),
             4  => array('avr.', 'avril'),
@@ -69,17 +81,25 @@ class MomentFrenchLocaleTest extends TestCase
     public function testFormat(): void
     {
         $a = array(
-            array('l, F d Y, g:i:s a',                  'dimanche, février 14 2010, 3:25:50 pm'),
-            array('D, gA',                              'dim., 3PM'),
-            array('n m F M',                            '2 02 février févr.'),
-            array('Y y',                                '2010 10'),
-            array('j d',                                '14 14'),
-            array('[the] z [day of the year]',          'the 44 day of the year')
+            array('l, F d Y, g:i:s a', 'dimanche, février 14 2010, 3:25:50 pm'),
+            array('D, gA', 'dim., 3PM'),
+            array('n m F M', '2 02 février févr.'),
+            array('Y y', '2010 10'),
+            array('j d', '14 14'),
+            array("[le] z[ème jour de l'année]", "le 44ème jour de l'année")
         );
         $b = new Moment('2010-02-14 15:25:50');
         for ($i = 0; $i < count($a); $i++) {
             self::assertEquals($a[$i][1], $b->format($a[$i][0]));
         }
+    }
+
+    public function testOrdinalsFormat(): void
+    {
+        $moment = new Moment('2010-06-02T00:00:00+0000');
+        self::assertEquals('2', $moment->format('jS'));
+        $moment = new Moment('2010-06-01T00:00:00+0000');
+        self::assertEquals('1er', $moment->format('jS'));
     }
 
     public function testRelative(): void

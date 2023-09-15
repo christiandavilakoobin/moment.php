@@ -3,6 +3,8 @@
 // locale: Catalan (ca_ES)
 // author: CROWD Studio https://github.com/crowd-studio
 
+use Moment\Moment;
+
 return array(
     "months"        => explode('_', 'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'),
     "monthsShort"   => explode('_', 'gen._febr._mar._abr._mai._jun._jul._ag._set._oct._nov._des.'),
@@ -21,6 +23,7 @@ return array(
         "future" => 'en %s',
         "past"   => 'fa %s',
         "s"      => 'uns segons',
+        "ss"      => '%d segons',
         "m"      => 'un minut',
         "mm"     => '%d minuts',
         "h"      => 'una hora',
